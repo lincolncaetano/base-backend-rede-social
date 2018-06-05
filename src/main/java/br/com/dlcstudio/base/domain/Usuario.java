@@ -18,16 +18,19 @@ public class Usuario implements Serializable {
 
 	private String username;
 	
+	private String email;
+	
 	@JsonIgnore
 	private String senha;
 
 	public Usuario() {
 	}
 
-	public Usuario(Integer id, String username, String senha) {
+	public Usuario(Integer id, String username, String email, String senha) {
 		super();
 		this.id = id;
 		this.username = username;
+		this.email = email;
 		this.senha = senha;
 	}
 
@@ -45,6 +48,14 @@ public class Usuario implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getSenha() {

@@ -7,5 +7,7 @@ import br.com.dlcstudio.base.domain.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+
+	Usuario findByUsername(String username);
 	
 }
