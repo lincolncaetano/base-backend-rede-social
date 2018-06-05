@@ -10,6 +10,6 @@ public class UsuarioResouces {
 
 	@RequestMapping(method=RequestMethod.GET)
 	public String listar() {
-		return "REST está funcionando corretamente";
+		return "REST está funcionando corretamente testar o git";
 	}
 }
