@@ -1,11 +1,15 @@
 package br.com.dlcstudio.base.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
@@ -18,20 +22,36 @@ public class Usuario implements Serializable {
 
 	private String username;
 	
+	@Column(unique=true)
 	private String email;
 	
 	@JsonIgnore
 	private String senha;
+	
+	private String nome;
+	
+	private String sexo;
+	
+	private String descricao;
+	
+	@Temporal(TemporalType.DATE)
+	private Date nascimento;
 
 	public Usuario() {
 	}
 
-	public Usuario(Integer id, String username, String email, String senha) {
+	public Usuario(Integer id, String nome, String email, String username, String senha) {
 		super();
 		this.id = id;
+		this.nome = nome;
 		this.username = username;
 		this.email = email;
 		this.senha = senha;
+	}
+	
+	public Usuario(Integer id) {
+		super();
+		this.id = id;
 	}
 
 	public Integer getId() {
@@ -64,6 +84,38 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Date getNascimento() {
+		return nascimento;
+	}
+
+	public void setNascimento(Date nascimento) {
+		this.nascimento = nascimento;
 	}
 
 	@Override

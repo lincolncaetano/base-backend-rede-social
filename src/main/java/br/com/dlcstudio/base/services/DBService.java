@@ -21,9 +21,9 @@ public class DBService {
 
 	public void instantiateTestDatabase() throws ParseException {
 		
-		Usuario user = new Usuario(null, "lincolncaetano", null, pe.encode("123"));
-		Usuario user2 = new Usuario(null, "teste", null, pe.encode("123"));
-		Usuario user3 = new Usuario(null, "teste2", null, pe.encode("123"));
+		Usuario user = new Usuario(null, "Lincoln", "lincolncaetano@gmail.com", "lincolncaetano", pe.encode("123"));
+		Usuario user2 = new Usuario(null, "Suely", "suely@gmail.com", "suelycaetano", pe.encode("123"));
+		Usuario user3 = new Usuario(null, "Jessica", "jessicalincolncaetano@gmail.com", "jenatasha", pe.encode("123"));
 		usuarioRepository.saveAll(Arrays.asList(user, user2, user3));
 			
 	}
