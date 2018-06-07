@@ -1,13 +1,18 @@
 package br.com.dlcstudio.base.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -36,6 +41,18 @@ public class Usuario implements Serializable {
 	
 	@Temporal(TemporalType.DATE)
 	private Date nascimento;
+	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name="UsuarioSeguido",
+		joinColumns = @JoinColumn(name = "usuario_id"),
+		inverseJoinColumns = @JoinColumn(name = "usuarioSeguido_id")
+	)
+	private List<Usuario> usuarioSeguidos = new ArrayList<>();
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy="usuarioSeguidos")
+	private List<Usuario> usuarioSeguidores = new ArrayList<>();
 
 	public Usuario() {
 	}
@@ -116,6 +133,22 @@ public class Usuario implements Serializable {
 
 	public void setNascimento(Date nascimento) {
 		this.nascimento = nascimento;
+	}
+
+	public List<Usuario> getUsuarioSeguidos() {
+		return usuarioSeguidos;
+	}
+
+	public void setUsuarioSeguidos(List<Usuario> usuarioSeguidos) {
+		this.usuarioSeguidos = usuarioSeguidos;
+	}
+
+	public List<Usuario> getUsuarioSeguidores() {
+		return usuarioSeguidores;
+	}
+
+	public void setUsuarioSeguidores(List<Usuario> usuarioSeguidores) {
+		this.usuarioSeguidores = usuarioSeguidores;
 	}
 
 	@Override

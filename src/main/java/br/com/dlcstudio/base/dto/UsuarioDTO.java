@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.dlcstudio.base.domain.Usuario;
+import br.com.dlcstudio.base.domain.UsuarioSeguido;
 import br.com.dlcstudio.base.services.validations.UsuarioUpdate;
 
 @UsuarioUpdate
@@ -45,11 +46,11 @@ public class UsuarioDTO implements Serializable {
 		username = obj.getUsername();
 		email = obj.getEmail();
 		descricao = obj.getDescricao();
-		//qtdSeguidores = obj.getUsuarioSeguidores().size();
-		//qtdSeguidos = obj.getUsuarioSeguidos().size();
+		qtdSeguidores = obj.getUsuarioSeguidores().size();
+		qtdSeguidos = obj.getUsuarioSeguidos().size();
 	}
 	
-/*	public UsuarioDTO(UsuarioSeguido obj, boolean seguido) {
+	public UsuarioDTO(UsuarioSeguido obj, boolean seguido) {
 		if(seguido) {
 			id = obj.getId().getUsuarioSeguido().getId();
 			nome = obj.getId().getUsuarioSeguido().getNome();
@@ -60,7 +61,7 @@ public class UsuarioDTO implements Serializable {
 			username = obj.getId().getUsuario().getUsername();
 		}
 	}
-	*/
+
 	public Integer getId() {
 		return id;
 	}
