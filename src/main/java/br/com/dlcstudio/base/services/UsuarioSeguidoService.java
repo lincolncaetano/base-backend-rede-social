@@ -48,7 +48,7 @@ public UsuarioSeguidoPK findDelete(UsuarioSeguidoPK id) {
 	}
 	
 	Optional<UsuarioSeguido> obj = repo.findById(id);
-	if(obj != null) {
+	if(obj.isPresent()) {
 		return obj.get().getId();
 	}else {
 		return null;
