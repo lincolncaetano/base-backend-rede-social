@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.dlcstudio.base.domain.Usuario;
+import br.com.dlcstudio.base.dto.SenhaDTO;
 import br.com.dlcstudio.base.dto.UsuarioDTO;
 import br.com.dlcstudio.base.services.UsuarioService;
 
@@ -24,6 +26,9 @@ public class UsuarioResouces {
 	
 	@Autowired
 	private UsuarioService service;
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	@RequestMapping(method=RequestMethod.GET)
 	public List<Usuario> listar() {
@@ -64,6 +69,20 @@ public class UsuarioResouces {
 	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO objDto, @PathVariable Integer id) {
 		Usuario obj = service.fromDTO(objDto);
 		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/editSenha/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> updatePassword(@Valid @RequestBody SenhaDTO objDto, @PathVariable Integer id) throws Exception{
+		Usuario obj = service.find(id);
+
+		if(!pe.matches(objDto.getSenhaAntiga(), obj.getSenha())) {
+			throw new Exception("MSG_ERROR_EDIT_SENHA");
+		}
+		
+		obj.setId(id);
+		obj.setSenha(pe.encode(objDto.getSenha()));
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
