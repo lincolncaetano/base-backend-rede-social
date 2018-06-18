@@ -60,7 +60,6 @@ public class UsuarioBloqueadoService {
 	
 
 	public void delete(UsuarioBloqueadoPK id) {
-		find(id);
 		try {
 			repo.deleteById(id);
 		}

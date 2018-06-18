@@ -1,13 +1,21 @@
 package br.com.dlcstudio.base.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Postagem implements Serializable {
@@ -28,8 +36,21 @@ public class Postagem implements Serializable {
 	private String pergunta;
 	
 	private String status;
+	
+	private Date dataPublicacao;
 
+	@OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name="postagem_id", insertable = false, updatable = false)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<Curtida> listaCurtidas;
+	
 	public Postagem() {
+		dataPublicacao = new Date();
+	}
+	
+	public Postagem(Integer id) {
+		this.id = id;
+		dataPublicacao = new Date();
 	}
 	
 	public Integer getId() {
@@ -78,6 +99,26 @@ public class Postagem implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public List<Integer> getListaCurtidas() {
+		List<Integer> lista = new ArrayList<>();
+		for (Curtida curtida : listaCurtidas) {
+			lista.add(curtida.getId().getUsuario().getId());
+		}
+		return lista;
+	}
+
+	public void setListaCurtidas(List<Curtida> listaCurtidas) {
+		this.listaCurtidas = listaCurtidas;
+	}
+	
+	public Date getDataPublicacao() {
+		return dataPublicacao;
+	}
+
+	public void setDataPublicacao(Date dataPublicacao) {
+		this.dataPublicacao = dataPublicacao;
 	}
 
 	@Override

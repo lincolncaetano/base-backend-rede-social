@@ -26,11 +26,11 @@ public class DenunciaService {
 		
 		Usuario usuario = new Usuario(dto.getIdUsuario());
 		Usuario usuarioDenunciado = null;
-		if(dto.getIdUsuarioDenunciado() != null && !dto.getIdUsuarioDenunciado().equals("")) {
+		if(dto.getIdUsuarioDenunciado() != null) {
 			usuarioDenunciado = new Usuario(dto.getIdUsuarioDenunciado());
 		}
 		Postagem postagem = null;
-		if(dto.getIdPostagem() != null && !dto.getIdPostagem().equals("")) {
+		if(dto.getIdPostagem() != null) {
 			postagem = new Postagem();
 			postagem.setId(dto.getIdPostagem());
 		}

@@ -17,7 +17,7 @@ import br.com.dlcstudio.base.dto.DenunciaDTO;
 import br.com.dlcstudio.base.services.DenunciaService;
 
 @RestController
-@RequestMapping(value="/denuncia")
+@RequestMapping(value="/denuncias")
 public class DenunciaResource {
 	
 	@Autowired
