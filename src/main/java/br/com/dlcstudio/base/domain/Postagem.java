@@ -44,6 +44,11 @@ public class Postagem implements Serializable {
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Curtida> listaCurtidas;
 	
+	@OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name="postagem_id", insertable = false, updatable = false)
+	@Fetch(FetchMode.SUBSELECT)
+	private List<Comentario> listaComentarios;
+	
 	public Postagem() {
 		dataPublicacao = new Date();
 	}
@@ -119,6 +124,18 @@ public class Postagem implements Serializable {
 
 	public void setDataPublicacao(Date dataPublicacao) {
 		this.dataPublicacao = dataPublicacao;
+	}
+	
+	public List<Integer> getListaComentarios() {
+		List<Integer> lista = new ArrayList<>();
+		for (Comentario comentario : listaComentarios) {
+			lista.add(comentario.getUsuario().getId());
+		}
+		return lista;
+	}
+
+	public void setListaComentarios(List<Comentario> listaComentarios) {
+		this.listaComentarios = listaComentarios;
 	}
 
 	@Override
