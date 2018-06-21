@@ -37,6 +37,8 @@ public class UsuarioDTO implements Serializable {
 	
 	private Integer qtdSeguidos;
 	
+	private Integer qtdPostagem;
+	
 	public UsuarioDTO() {
 	}
 
@@ -48,6 +50,7 @@ public class UsuarioDTO implements Serializable {
 		descricao = obj.getDescricao();
 		qtdSeguidores = obj.getUsuarioSeguidores().size();
 		qtdSeguidos = obj.getUsuarioSeguidos().size();
+		qtdPostagem = obj.getListaPostagem().size();
 	}
 	
 	public UsuarioDTO(UsuarioSeguido obj, boolean seguido) {
@@ -133,7 +136,13 @@ public class UsuarioDTO implements Serializable {
 	public void setNascimento(String nascimento) {
 		this.nascimento = nascimento;
 	}
-	
-	
+
+	public Integer getQtdPostagem() {
+		return qtdPostagem;
+	}
+
+	public void setQtdPostagem(Integer qtdPostagem) {
+		this.qtdPostagem = qtdPostagem;
+	}
 	
 }

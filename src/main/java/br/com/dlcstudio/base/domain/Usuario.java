@@ -7,14 +7,19 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
@@ -53,6 +58,11 @@ public class Usuario implements Serializable {
 	@JsonIgnore
 	@ManyToMany(mappedBy="usuarioSeguidos")
 	private List<Usuario> usuarioSeguidores = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany
+    @JoinColumn(name="usuario_id")
+	private List<Postagem> listaPostagem;
 
 	public Usuario() {
 	}
@@ -149,6 +159,14 @@ public class Usuario implements Serializable {
 
 	public void setUsuarioSeguidores(List<Usuario> usuarioSeguidores) {
 		this.usuarioSeguidores = usuarioSeguidores;
+	}
+	
+	public List<Postagem> getListaPostagem() {
+		return listaPostagem;
+	}
+
+	public void setListaPostagem(List<Postagem> listaPostagem) {
+		this.listaPostagem = listaPostagem;
 	}
 
 	@Override
